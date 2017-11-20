@@ -1,73 +1,77 @@
-[
-  {
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  },{
-    "id":"1",
-    "productName": "小米电视4 55英寸",
-    "productPrice": "3999",
-    "productPicture": "1.jpg"
-  }
-]
+{
+  "status": "0",
+  "result": [
+    {
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    },{
+      "id":"1",
+      "productName": "小米电视4 55英寸",
+      "productPrice": "3999",
+      "productPicture": "1.jpg"
+    }
+  ]
+}
+
