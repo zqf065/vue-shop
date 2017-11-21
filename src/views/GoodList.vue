@@ -32,7 +32,7 @@
                 <ul>
                   <li v-for="item in goodList">
                     <div class="pic">
-                      <a href="#"><img v-bind:src="'static/' + item.productPicture" alt=""></a>
+                      <a href="#"><img v-lazy="'static/' + item.productPicture" alt=""></a>
                     </div>
                     <div class="main">
                       <div class="name">{{item.productName}}</div>
