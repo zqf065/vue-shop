@@ -1,7 +1,7 @@
 'use strict'
 
-const express =  require('express')
-const app = express()
+// const express =  require('express')
+// const app = express()
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
@@ -10,8 +10,8 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
-const router = express.Router()
-const goodsdata = require('./../mock/goods.json')
+// const router = express.Router()
+// const goodsdata = require('./../mock/goods.json')
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -19,7 +19,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
 
-  // these devServer options should be customized in /config/index.js
+  // these devServer options should be customized in /config/goods.js
   devServer: {
     clientLogLevel: 'warning',
     historyApiFallback: true,
@@ -36,13 +36,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
-    },
-    before: function(app){
-      app.get('/goods', function (req, res, next) {
-        res.json(goodsdata);
-      });
-      app.use(router);
     }
+    // before: function(app){
+    //   app.get('/goods', function (req, res, next) {
+    //     res.json(goodsdata);
+    //   });
+    //   app.use(router);
+    // }
   },
   plugins: [
     new webpack.DefinePlugin({
