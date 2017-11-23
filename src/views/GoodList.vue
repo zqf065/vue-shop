@@ -101,6 +101,8 @@
         curIndex: 'all',
         filterBy: false,
         param: {
+          startPrice: 0,
+          endPrice: 0,
           pageSize: 8,
           pageIndex: 1,
           sort: 'asc'
@@ -133,6 +135,15 @@
       setFilter (index) {
         this.curIndex = index
         this.busy = false
+        this.param.pageIndex = 1
+        if (index !== 'all') {
+          this.param.startPrice = this.priceFilter[index].startPrice
+          this.param.endPrice = this.priceFilter[index].endPrice
+        } else {
+          this.param.startPrice = 0
+          this.param.endPrice = 0
+        }
+        this.getGoods()
       },
       showFilterPop () {
         this.filterBy = true

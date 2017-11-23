@@ -21,7 +21,15 @@ router.get('/', function (req, res, next) {
   let sort = req.param('sort');
   let pageIndex = parseInt(req.param('pageIndex'));
   let offset = (pageIndex - 1) * pageSize;
+  let startPrice = parseInt(req.param('startPrice'));
+  let endPrice = parseInt(req.param('endPrice'));
   let params = {};
+  if (endPrice !== 0) {
+    params.salePrice = {
+      $gt: startPrice,
+      $lte: endPrice
+    }
+  }
   let goodsModel = Good.find(params).skip(offset).limit(pageSize);
   goodsModel.sort({'salePrice': sort});
   goodsModel.exec(function (err, doc) {
@@ -31,7 +39,6 @@ router.get('/', function (req, res, next) {
         msg: err
       });
     } else {
-      console.log(doc);
       res.json({
         status: '0',
         msg: '',
