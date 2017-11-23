@@ -45,7 +45,7 @@
                       <div class="name">{{item.productName}}</div>
                       <div class="price">{{item.salePrice}}</div>
                       <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                        <a href="javascript:;" class="btn btn--m" @click="addCart(item.productId)">加入购物车</a>
                       </div>
                     </div>
                   </li>
@@ -116,7 +116,7 @@
     },
     methods: {
       getGoods (flag) {
-        axios.get('http://127.0.0.1:3000/goods', {
+        axios.get('http://127.0.0.1:3000/goods/list', {
           params: this.param
         }).then((data) => {
           let array = data.data.result
@@ -130,6 +130,16 @@
             this.goodList = array
           }
           this.loading = false
+        })
+      },
+      addCart (productId) {
+        axios.post('http://localhost:3000/goods/addCart', {productId: productId}).then((res) => {
+          var status = res.data.status
+          if (status === 0) {
+            alert('加入购物车成功!')
+          } else {
+            alert(res.data.msg)
+          }
         })
       },
       setFilter (index) {

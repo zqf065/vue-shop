@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Good = require('./../models/goods.js');
+var user = require('./../models/user.js');
 
 mongoose.connect('mongodb://127.0.0.1:27017/vue_shop');
 mongoose.connection.on('connected', function () {
@@ -14,7 +15,7 @@ mongoose.connect('disconnected', function () {
   console.log('MongDB disconnected.')
 });
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/list', function (req, res, next) {
   console.log(req.param);
   let pageSize = parseInt(req.param('pageSize'));
   pageSize = isNaN(pageSize) ? 8 : pageSize;
@@ -46,7 +47,67 @@ router.get('/', function (req, res, next) {
       });
     }
   });
-
 });
-
+router.post('/addCart', function(req, res, next) {
+  var userId = '100000077';
+  var productId = req.body.productId;
+  user.findOne({'userId': userId}, (err, doc) => {
+    if (err) {
+      res.json({
+        'status': 0,
+        'msg': 'success'
+      });
+    } else {
+      var productItem;
+      doc.cartList.forEach(function (item) {
+        if (item.productId === productId) {
+          item.productNum ++;
+          productItem = item;
+        }
+      });
+      if (productItem) {
+        doc.save(function (err, doc2) {
+          if (err) {
+            res.json({
+              'status': 1,
+              'msg': err
+            });
+          } else {
+            res.json({
+              'status': 0,
+              'msg': 'success'
+            });
+          }
+        });
+      } else {
+        Good.findOne({'productId': productId}, function (err, doc3) {
+          if (err) {
+            res.json({
+              'status': 1,
+              'msg': err
+            });
+          } else {
+            productItem = doc3;
+            productItem.productNum = 1;
+            productItem.checked = 1;
+            doc.cartList.push(productItem);
+            doc.save(function (err, doc4) {
+              if (err) {
+                res.json({
+                  'status': 1,
+                  'msg': err
+                });
+              } else {
+                res.json({
+                  'status': 0,
+                  'msg': 'success'
+                });
+              }
+            });
+          }
+        });
+      }
+    }
+  });
+});
 module.exports = router;
