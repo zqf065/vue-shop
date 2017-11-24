@@ -24,9 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/goods', goods);
-app.use('/users', users);
-
+// 服务器跨域
 app.use('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -35,6 +33,25 @@ app.use('*', function(req, res, next) {
   res.header('Content-Type', 'application/json;charset=utf-8');
   next();
 });
+
+// 请求接口控制
+app.use(function (req, res, next) {
+  if (req.cookies && req.cookies.userId) {
+    next();
+  } else {
+    if (req.originalUrl === '/users/logout' || req.originalUrl.indexOf('/goods/list') > -1 || req.originalUrl === '/users/login') {
+      next();
+    } else {
+      res.json({
+        status: 1,
+        msg: '请登录再操作'
+      });
+    }
+  }
+});
+
+app.use('/goods', goods);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

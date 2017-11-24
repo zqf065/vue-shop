@@ -96,7 +96,7 @@
     },
     methods: {
       loginOut () {
-        axios.post('http://localhost:3000/users/loginOut').then((res) => {
+        axios.post('http://localhost:3000/users/logout').then((res) => {
           var result = res.data
           if (result.status === 0) {
             this.nickName = ''

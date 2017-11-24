@@ -32,7 +32,7 @@ router.post('/login', function (req, res, next) {
     }
   })
 });
-router.post('/loginOut', function(req, res, next) {
+router.post('/logout', function(req, res, next) {
   res.cookie('userId', '', {
     path: '/',
     maxAge: -1
