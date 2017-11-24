@@ -31,9 +31,9 @@
           <div class="navbar-right-container">
             <div class="navbar-menu-container">
               <!--<a href="/" class="navbar-link">我的账户</a>-->
-              <span class="navbar-link"></span>
-              <a href="javascript:void(0)" class="navbar-link">登录</a>
-              <!--<a href="javascript:void(0)" class="navbar-link">登出</a>-->
+              <span class="navbar-link" v-text="nickName" v-if="nickName"></span>
+              <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true" v-if="!nickName">登录</a>
+              <a href="javascript:void(0)" class="navbar-link" @click="loginOut" v-else>登出</a>
               <div class="navbar-cart-container">
                 <span class="navbar-cart-count"></span>
                 <a class="navbar-link" href="/#/cart">
@@ -46,13 +46,77 @@
           </div>
         </div>
       </header>
+      <div class="md-modal modal-msg md-modal-transition" v-bind:class="{'md-show':loginModalFlag}">
+        <div class="md-modal-inner">
+          <div class="md-top">
+            <div class="md-title">登录</div>
+            <button class="md-close" @click="loginModalFlag=false">Close</button>
+          </div>
+
+          <div class="md-content">
+            <div class="confirm-tips">
+              <div class="error-wrap">
+                <span class="error error-show" v-text="errMsg" v-if="errMsg"></span>
+              </div>
+              <ul>
+                <li class="regi_form_input">
+                  <i class="icon IconPeople"></i>
+                  <input type="text" tabindex="1" name="loginName" v-model="userName"
+                         class="regi_login_input regi_login_input_left" placeholder="用户名" data-type="loginName"/>
+                </li>
+                <li class="regi_form_input noMargin">
+                  <i class="icon IconPwd"></i>
+                  <input type="password" tabindex="2" name="password" v-model="userPwd"
+                         class="regi_login_input regi_login_input_left login-input-no input_text" placeholder="密码"
+                         @keyup.enter="login"/>
+                </li>
+              </ul>
+            </div>
+            <div class="login-wrap">
+              <a href="javascript:void(0);" class="btn-login" @click="login">登录</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="md-overlay" v-show="loginModalFlag" @click="loginModalFlag=false"></div>
     </div>
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     data () {
-      return {}
+      return {
+        loginModalFlag: false,
+        userName: '',
+        userPwd: '',
+        nickName: '',
+        errMsg: ''
+      }
+    },
+    methods: {
+      loginOut () {
+        axios.post('http://localhost:3000/users/loginOut').then((res) => {
+          var result = res.data
+          if (result.status === 0) {
+            this.nickName = ''
+          }
+        })
+      },
+      login () {
+        var userName = this.userName
+        var userPwd = this.userPwd
+        axios.post('http://localhost:3000/users/login', {userName: userName, userPwd: userPwd}).then((res) => {
+          var result = res.data
+          if (result.status === 0) {
+            this.nickName = result.result.userName
+            this.loginModalFlag = false
+            this.errMsg = ''
+          } else {
+            this.errMsg = result.msg
+          }
+        })
+      }
     }
   }
 </script>
@@ -134,6 +198,87 @@
     width: 25px;
     height: 25px;
     transform: scaleX(-1);
+  }
+/*登录样式*/
+  .regi_form_input{
+    position: relative;
+    height: 42px;
+    line-height: 42px;
+    background: none;
+    margin-bottom: 15px;
+    font-size: 14px;
+    overflow: hidden;
+    border:1px solid #ccc;
+    padding-bottom: 0;
+  }
+  .regi_form_input .icon {
+    display: inline-block;
+    float: left;
+    width: 25px;
+    height: 29px;
+    margin: 6px 0 0 14px;
+    background-position: 4px 5px;
+    background-image: url("/static/icon.png");
+    background-repeat: no-repeat;
+  }
+  .regi_form_input .IconPwd {
+    background-position: -198px 3px;
+  }
+  .regi_form_input .regi_login_input{
+    position: absolute;
+    left:45px;
+    top:0;
+    padding: 9px 0 10px;
+    width: 270px;
+    font-size: 14px;
+    zoom: 1;
+    border: none;
+    color: #333;
+    /*height: 23px;*/
+    line-height: 23px;
+    background: 0 0!important;
+  }
+  .md-title{
+    position: absolute;
+    top: 14px;
+    line-height: 24px;
+    padding: 8px 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .login-wrap{
+    margin-top:30px;
+  }
+  .md-content .btn-login{
+    display: block;
+    height: 38px;
+    line-height: 38px;
+    border: 2px solid #009de6;
+    background: #009de6;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+  }
+  .btn-login:hover {
+    background: #61b1ef;
+    border: 2px solid #61b1ef;
+  }
+  .error-wrap .error{
+    font-size: 12px;
+    color: #d31723;
+    visibility: hidden;
+    display: block;
+    padding: 0 0 7px 17px;
+    line-height: 16px;
+    height: 16px;
+    text-align: left;
+    background: url("/static/icon.png") 0 -100px no-repeat;
+  }
+  .md-content .error-wrap .error-show{
+    visibility: visible;
+    height: auto;
   }
 
 </style>
