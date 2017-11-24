@@ -62,5 +62,27 @@ router.post('/checkLogin', function (req, res, next) {
       msg: ''
     });
   }
-})
+});
+router.post('/getCarList', function(req, res, next) {
+  var userId = req.cookies.userId
+  User.findOne({userId: userId}, function(err, doc) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message,
+        result: ''
+      })
+    } else {
+      if (doc) {
+        res.json({
+          status: 0,
+          msg: '',
+          result: {
+            cartList: doc.cartList
+          }
+        })
+      }
+    }
+  });
+});
 module.exports = router;

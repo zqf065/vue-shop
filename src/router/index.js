@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import Model from '@/components/Model'
 import GoodList from './../views/GoodList.vue'
+import Cart from './../views/Cart.vue'
 
 Vue.use(Router)
 
@@ -20,6 +21,10 @@ export default new Router({
       path: '/index',
       name: 'GoodList',
       component: GoodList
+    }, {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
     }
   ]
 })
