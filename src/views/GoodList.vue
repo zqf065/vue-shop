@@ -61,6 +61,23 @@
           </div>
         </div>
       </div>
+      <Modal v-bind:mdShow="mdShow" v-on:close="closeModal">
+        <p slot="message">
+          {{msg}}
+        </p>
+        <div slot="btnGroup">
+          <a class="btn btn--m" href="javascript:void(0);" @click="closeModal">关闭</a>
+        </div>
+      </Modal>
+      <Modal v-bind:mdShow="mdSuccess" v-on:close="closeModal">
+        <p slot="message">
+          {{msg}}
+        </p>
+        <div slot="btnGroup">
+          <a class="btn btn--m" href="javascript:void(0);" @click="closeModal">继续购物</a>
+          <router-link class="btn btn--m btn--red" href="javascrip:void(0);" to="/cart">去购物车结算</router-link>
+        </div>
+      </Modal>
       <div class="md-overlay" v-show="overLayFlag" @click.stop="closePop"></div>
       <NavFooter></NavFooter>
     </div>
@@ -73,6 +90,7 @@
   import NavHeader from './../components/NavHeader.vue'
   import NavBread from './../components/NavBread.vue'
   import NavFooter from './../components/NavFooter.vue'
+  import Modal from '../components/Modal.vue'
 
   import axios from 'axios'
 
@@ -81,9 +99,11 @@
       this.getGoods()
     },
     components: {
+      Modal,
       NavHeader,
       NavBread,
-      NavFooter},
+      NavFooter
+    },
     data () {
       return {
         priceFilter: [
@@ -98,8 +118,6 @@
             endPrice: 10000
           }
         ],
-        curIndex: 'all',
-        filterBy: false,
         param: {
           startPrice: 0,
           endPrice: 0,
@@ -107,14 +125,23 @@
           pageIndex: 1,
           sort: 'asc'
         },
+        curIndex: 'all',
+        filterBy: false,
         overLayFlag: false,
         sortDefault: true,
         busy: false,
         loading: false,
+        mdShow: false,
+        mdSuccess: false,
+        msg: '',
         goodList: []
       }
     },
     methods: {
+      closeModal () {
+        this.mdShow = false
+        this.mdSuccess = false
+      },
       getGoods (flag) {
         axios.get('http://127.0.0.1:3000/goods/list', {
           params: this.param
@@ -136,9 +163,11 @@
         axios.post('http://localhost:3000/goods/addCart', {productId: productId}).then((res) => {
           var status = res.data.status
           if (status === 0) {
-            alert('加入购物车成功!')
+            this.msg = '加入购物车成功！'
+            this.mdSuccess = true
           } else {
-            alert(res.data.msg)
+            this.msg = res.data.msg
+            this.mdShow = true
           }
         })
       },

@@ -85,6 +85,9 @@
 <script>
   import axios from 'axios'
   export default {
+    mounted () {
+      this.checkLogin()
+    },
     data () {
       return {
         loginModalFlag: false,
@@ -95,6 +98,14 @@
       }
     },
     methods: {
+      checkLogin () {
+        axios.post('http://localhost:3000/users/checkLogin').then((res) => {
+          var result = res.data
+          if (result.status === 0) {
+            this.nickName = result.result.userName
+          }
+        })
+      },
       loginOut () {
         axios.post('http://localhost:3000/users/logout').then((res) => {
           var result = res.data

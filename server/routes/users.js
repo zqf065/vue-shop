@@ -16,6 +16,10 @@ router.post('/login', function (req, res, next) {
         path: '/',
         maxAge: 1000 * 60 * 30
       });
+      res.cookie('userName', doc.userName, {
+        path: '/',
+        maxAge: 1000 * 60 * 30
+      });
       res.json({
         status: 0,
         msg: '',
@@ -43,5 +47,20 @@ router.post('/logout', function(req, res, next) {
     result: ''
   });
 });
-
+router.post('/checkLogin', function (req, res, next) {
+  if (req.cookies.userId) {
+    res.json({
+      status: 0,
+      msg: '',
+      result: {
+        userName: req.cookies.userName
+      }
+    });
+  } else {
+    res.json({
+      status: 1,
+      msg: ''
+    });
+  }
+})
 module.exports = router;
