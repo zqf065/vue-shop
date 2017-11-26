@@ -36,7 +36,7 @@ router.post('/login', function (req, res, next) {
     }
   })
 });
-router.post('/logout', function(req, res, next) {
+router.post('/logout', function (req, res, next) {
   res.cookie('userId', '', {
     path: '/',
     maxAge: -1
@@ -63,7 +63,7 @@ router.post('/checkLogin', function (req, res, next) {
     });
   }
 });
-router.post('/getCarList', function(req, res, next) {
+router.post('/getCarList', function (req, res, next) {
   var userId = req.cookies.userId
   User.findOne({userId: userId}, function(err, doc) {
     if (err) {
@@ -84,5 +84,51 @@ router.post('/getCarList', function(req, res, next) {
       }
     }
   });
+});
+router.post('/cartDel', function (req, res, next) {
+  var prodcutId = req.body.productId
+  var userId = req.cookies.userId
+  User.update({userId: userId}, {
+    $pull: {
+      'cartList': {
+        'productId': prodcutId
+      }
+    }
+  }, function (err, doc) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message
+      })
+    } else {
+      res.json({
+        status: 0,
+        msg: '删除成功'
+      })
+    }
+  });
+});
+router.post('/cartEdit', function (req, res, next) {
+  var productNum = req.body.productNum
+  var productId = req.body.productId
+  var userId = req.cookies.userId
+  var checked = req.body.checked
+  User.update({'userId': userId, 'cartList.productId': productId}, {
+    'cartList.$.productNum': productNum,
+    'cartList.$.checked': checked
+  }, function (err, doc) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message
+      })
+    } else {
+      res.json({
+        status: 0,
+        msg: '',
+        result: 'success'
+      })
+    }
+  })
 });
 module.exports = router;

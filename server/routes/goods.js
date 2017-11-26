@@ -16,7 +16,6 @@ mongoose.connect('disconnected', function () {
 });
 /* GET home page. */
 router.get('/list', function (req, res, next) {
-  console.log(req.param);
   let pageSize = parseInt(req.param('pageSize'));
   pageSize = isNaN(pageSize) ? 8 : pageSize;
   let sort = req.param('sort');

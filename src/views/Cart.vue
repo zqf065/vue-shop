@@ -1,7 +1,9 @@
 <template>
     <div>
       <NavHeader></NavHeader>
-      <NavBread></NavBread>
+      <NavBread>
+        <span>购物车</span>
+      </NavBread>
       <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
@@ -60,7 +62,7 @@
                 <li v-for="item in cartList">
                   <div class="cart-tab-1">
                     <div class="cart-item-check">
-                      <a href="javascipt:;" class="checkbox-btn item-check-btn"  @click="checkItem(item.productId)">
+                      <a href="javascript:void(0);" class="checkbox-btn item-check-btn" v-bind:class="{'check': item.checked == 1}"  @click="cartEdit(0, item, item.checked)">
                         <svg class="icon icon-ok">
                           <use xlink:href="#icon-ok"></use>
                         </svg>
@@ -80,9 +82,9 @@
                     <div class="item-quantity">
                       <div class="select-self select-self-open">
                         <div class="select-self-area">
-                          <a class="input-sub">-</a>
+                          <a class="input-sub" @click="cartEdit(-1, item)">-</a>
                           <span class="select-ipt">{{item.productNum}}</span>
-                          <a class="input-add">+</a>
+                          <a class="input-add" @click="cartEdit(1, item)">+</a>
                         </div>
                       </div>
                     </div>
@@ -92,7 +94,7 @@
                   </div>
                   <div class="cart-tab-5">
                     <div class="cart-item-opration">
-                      <a href="javascript:;" class="item-edit-btn">
+                      <a href="javascript:;" class="item-edit-btn" @click="cartDel(item.productId)">
                         <svg class="icon icon-del">
                           <use xlink:href="#icon-del"></use>
                         </svg>
@@ -117,7 +119,7 @@
               </div>
               <div class="cart-foot-r">
                 <div class="item-total">
-                  总价: <span class="total-price">39990</span>
+                  总价: <span class="total-price">{{totalPrice}}</span>
                 </div>
                 <div class="btn-wrap">
                   <a class="btn btn--red">去结算</a>
@@ -128,41 +130,79 @@
         </div>
       </div>
       <NavFooter></NavFooter>
+      <Modal v-show="mdShow" v-on:close="ModalClose">
+        <p slot="message">确认删除？</p>
+        <div slot="btnGroup">
+          <a class="btn btn--m" href="javascript:void(0);" @click="mdShow=false">取消</a>
+          <a class="btn btn--m" href="javascript:void(0);" @click="cartDel">确定</a>
+        </div>
+      </Modal>
       </div>
 </template>
 <script>
   import NavHeader from './../components/NavHeader.vue'
   import NavBread from './../components/NavBread.vue'
   import NavFooter from './../components/NavFooter.vue'
+  import Modal from './../components/Modal.vue'
   import axios from 'axios'
   export default {
     name: 'Cart',
     components: {
       NavHeader,
       NavBread,
-      NavFooter
+      NavFooter,
+      Modal
     },
     mounted () {
       this.getCarList()
     },
     data () {
       return {
+        mdShow: false,
         cartList: []
       }
     },
-    methods: {
-      checkItem (id) {
+    computed: {
+      totalPrice () {
+        var money = 0
         this.cartList.forEach(function (item) {
-          if (item.productId === id) {
-
+          if (parseInt(item.checked) === 1) {
+            money += item.salePrice * item.productNum
           }
         })
+        return money
+      }
+    },
+    methods: {
+      ModalClose () {
+        this.mdShow = false
       },
       getCarList () {
-        axios.post('http://localhost:3000/users/getCarList').then((response) => {
+        axios.post('/users/getCarList').then((response) => {
           var res = response.data
           if (res.status === 0) {
             this.cartList = res.result.cartList
+          }
+        })
+      },
+      cartDel (id) {
+        axios.post('/users/cartDel', {productId: id}).then((res) => {
+          var result = res.data
+          if (result.status === 0) {
+            this.getCarList()
+          }
+        })
+      },
+      cartEdit (num, item, checked) {
+        let pNum = parseInt(num) + parseInt(item.productNum)
+        item.productNum = pNum < 1 ? 1 : pNum
+        if (checked !== undefined) {
+          item.checked = parseInt(checked) === 1 ? 0 : 1
+        }
+        axios.post('/users/cartEdit', item).then((res) => {
+          var result = res.data
+          if (result.status === 0) {
+            this.getCarList()
           }
         })
       }
@@ -1343,5 +1383,26 @@
       right: 22px; }
     .header__search-mobile, .header__search-wrapper {
       display: none; } }
-
+  .input-sub,.input-add{
+    min-width: 40px;
+    height: 100%;
+    border: 0;
+    color: #605F5F;
+    text-align: center;
+    font-size: 16px;
+    overflow: hidden;
+    display: inline-block;
+    background: #f0f0f0;
+  }
+  .item-quantity .select-self-area{
+    background:none;
+    border: 1px solid #f0f0f0;
+  }
+  .item-quantity .select-self-area .select-ipt{
+    display: inline-block;
+    padding:0 3px;
+    width: 30px;
+    min-width: 30px;
+    text-align: center;
+  }
 </style>

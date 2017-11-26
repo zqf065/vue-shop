@@ -36,9 +36,14 @@ app.use('*', function(req, res, next) {
 
 // 请求接口控制
 app.use(function (req, res, next) {
+  next();
   if (req.cookies && req.cookies.userId) {
     next();
   } else {
+    res.cookie('userId', '111', {
+      path: '/',
+      maxAge: 1000 * 10
+    })
     if (req.originalUrl === '/users/logout' || req.originalUrl.indexOf('/goods/list') > -1 || req.originalUrl === '/users/login') {
       next();
     } else {

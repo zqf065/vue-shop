@@ -1,7 +1,9 @@
 <template>
     <div>
       <NavHeader></NavHeader>
-      <NavBread></NavBread>
+      <NavBread>
+        <span>商品列表</span>
+      </NavBread>
       <div class="accessory-result-page">
         <div class="container">
           <div class="filter-nav">
@@ -143,7 +145,7 @@
         this.mdSuccess = false
       },
       getGoods (flag) {
-        axios.get('http://127.0.0.1:3000/goods/list', {
+        axios.get('/goods/list', {
           params: this.param
         }).then((data) => {
           let array = data.data.result
@@ -160,7 +162,7 @@
         })
       },
       addCart (productId) {
-        axios.post('http://localhost:3000/goods/addCart', {productId: productId}).then((res) => {
+        axios.post('/goods/addCart', {productId: productId}).then((res) => {
           var status = res.data.status
           if (status === 0) {
             this.msg = '加入购物车成功！'

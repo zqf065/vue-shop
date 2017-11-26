@@ -99,7 +99,7 @@
     },
     methods: {
       checkLogin () {
-        axios.post('http://localhost:3000/users/checkLogin').then((res) => {
+        axios.post('/users/checkLogin').then((res) => {
           var result = res.data
           if (result.status === 0) {
             this.nickName = result.result.userName
@@ -107,7 +107,7 @@
         })
       },
       loginOut () {
-        axios.post('http://localhost:3000/users/logout').then((res) => {
+        axios.post('/users/logout').then((res) => {
           var result = res.data
           if (result.status === 0) {
             this.nickName = ''
@@ -117,7 +117,7 @@
       login () {
         var userName = this.userName
         var userPwd = this.userPwd
-        axios.post('http://localhost:3000/users/login', {userName: userName, userPwd: userPwd}).then((res) => {
+        axios.post('/users/login', {userName: userName, userPwd: userPwd}).then((res) => {
           var result = res.data
           if (result.status === 0) {
             this.nickName = result.result.userName
