@@ -4,6 +4,7 @@ import Index from '@/components/Index'
 import Model from '@/components/Model'
 import GoodList from './../views/GoodList.vue'
 import Cart from './../views/Cart.vue'
+import Address from './../views/Address.vue'
 
 Vue.use(Router)
 
@@ -25,6 +26,10 @@ export default new Router({
       path: '/cart',
       name: 'Cart',
       component: Cart
+    }, {
+      path: '/Address',
+      name: 'Address',
+      component: Address
     }
   ]
 })

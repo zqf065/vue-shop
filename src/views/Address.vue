@@ -2,267 +2,164 @@
     <div>
       <NavHeader></NavHeader>
       <NavBread>
-        <span>购物车</span>
+        <span>收货地址</span>
       </NavBread>
-      <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
-           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <defs>
-          <symbol id="icon-add" viewBox="0 0 32 32">
-            <title>add2</title>
-            <path class="path1"
-                  d="M15 17h-13.664c-0.554 0-1.002-0.446-1.002-1 0-0.552 0.452-1 1.002-1h13.664v-13.664c0-0.554 0.446-1.002 1-1.002 0.552 0 1 0.452 1 1.002v13.664h13.664c0.554 0 1.002 0.446 1.002 1 0 0.552-0.452 1-1.002 1h-13.664v13.664c0 0.554-0.446 1.002-1 1.002-0.552 0-1-0.452-1-1.002v-13.664z"></path>
-          </symbol>
-          <symbol id="icon-ok" viewBox="0 0 32 32">
-            <title>ok</title>
-            <path class="path1"
-                  d="M31.020 0.438c-0.512-0.363-1.135-0.507-1.757-0.406s-1.166 0.435-1.529 0.937l-17.965 24.679-5.753-5.67c-0.445-0.438-1.035-0.679-1.664-0.679s-1.219 0.241-1.664 0.679c-0.917 0.904-0.917 2.375 0 3.279l7.712 7.6c0.438 0.432 1.045 0.681 1.665 0.681l0.195-0.008c0.688-0.057 1.314-0.406 1.717-0.959l19.582-26.9c0.754-1.038 0.512-2.488-0.538-3.233z"></path>
-          </symbol>
-          <symbol id="icon-edit" viewBox="0 0 32 32">
-            <title>edit</title>
-            <path class="path1"
-                  d="M28.287 8.51l-4.805-4.806 0.831-0.831c0.472-0.472 1.086-0.777 1.564-0.777 0.248 0 0.452 0.082 0.622 0.253l3.143 3.144c0.539 0.54 0.133 1.529-0.524 2.186l-0.831 0.831zM26.805 9.992l-1.138 1.138-4.805-4.806 1.138-1.138 4.805 4.806zM24.186 12.612l-14.758 14.762-4.805-4.806 14.758-14.762 4.805 4.806zM7.379 28.288l-4.892 1.224 1.223-4.894 3.669 3.67zM31.123 4.011l-3.143-3.144c-0.567-0.567-1.294-0.867-2.103-0.867-1.036 0-2.174 0.52-3.045 1.391l-20.429 20.436c-0.135 0.134-0.23 0.302-0.276 0.487l-2.095 8.385c-0.089 0.355 0.017 0.736 0.276 0.995 0.198 0.198 0.461 0.307 0.741 0.307 0.085 0 0.171-0.010 0.254-0.031l8.381-2.096c0.185-0.047 0.354-0.142 0.487-0.276l20.43-20.436c1.409-1.41 2.042-3.632 0.524-5.15v0z"></path>
-          </symbol>
-          <symbol id="icon-del" viewBox="0 0 32 32">
-            <title>delete</title>
-            <path class="path1"
-                  d="M11.355 4.129v-2.065h9.29v2.065h-9.29zM6.194 29.935v-23.742h19.613v23.742h-19.613zM30.968 4.129h-8.258v-3.097c0-0.569-0.463-1.032-1.032-1.032h-11.355c-0.569 0-1.032 0.463-1.032 1.032v3.097h-8.258c-0.569 0-1.032 0.463-1.032 1.032s0.463 1.032 1.032 1.032h3.097v24.774c0 0.569 0.463 1.032 1.032 1.032h21.677c0.569 0 1.032-0.463 1.032-1.032v-24.774h3.097c0.569 0 1.032-0.463 1.032-1.032s-0.463-1.032-1.032-1.032v0z"></path>
-            <path class="path2"
-                  d="M10.323 9.806c-0.569 0-1.032 0.463-1.032 1.032v14.452c0 0.569 0.463 1.032 1.032 1.032s1.032-0.463 1.032-1.032v-14.452c0-0.569-0.463-1.032-1.032-1.032z"></path>
-            <path class="path3"
-                  d="M16 9.806c-0.569 0-1.032 0.463-1.032 1.032v14.452c0 0.569 0.463 1.032 1.032 1.032s1.032-0.463 1.032-1.032v-14.452c0-0.569-0.463-1.032-1.032-1.032z"></path>
-            <path class="path4"
-                  d="M21.677 9.806c-0.569 0-1.032 0.463-1.032 1.032v14.452c0 0.569 0.463 1.032 1.032 1.032s1.032-0.463 1.032-1.032v-14.452c0-0.569-0.463-1.032-1.032-1.032z"></path>
-          </symbol>
-          <symbol id="icon-clock" viewBox="0 0 32 32">
-            <title>clock</title>
-            <path class="path1" fill="#605f5f"
-                  d="M16 29c-7.168 0-13-5.831-13-13s5.832-13 13-13c7.168 0 13 5.832 13 13s-5.832 13-13 13zM16 0c-8.822 0-16 7.178-16 16s7.178 16 16 16c8.822 0 16-7.178 16-16s-7.178-16-16-16z"></path>
-            <path class="path2" fill="#605f5f"
-                  d="M23.958 21.837l-6.958-6.489v-6.282c0-0.827-0.673-1.5-1.5-1.5s-1.5 0.673-1.5 1.5v6.934c0 0.414 0.174 0.814 0.477 1.098l7.435 6.934c0.279 0.259 0.642 0.402 1.023 0.402 0.415 0 0.814-0.174 1.096-0.477 0.564-0.605 0.532-1.555-0.073-2.12z"></path>
-          </symbol>
-        </defs>
-      </svg>
-      <div class="container">
-        <div class="cart">
-          <div class="page-title-normal">
-            <h2 class="page-title-h2"><span>我的购物车</span></h2>
-          </div>
-          <div class="item-list-wrap">
-            <div class="cart-item">
-              <div class="cart-item-head">
-                <ul>
-                  <li>商品</li>
-                  <li>单价</li>
-                  <li>数量</li>
-                  <li>小计</li>
-                  <li>操作</li>
-                </ul>
-              </div>
-              <ul class="cart-item-list">
-                <li v-for="item in cartList">
-                  <div class="cart-tab-1">
-                    <div class="cart-item-check">
-                      <a href="javascript:void(0);" class="checkbox-btn item-check-btn" v-bind:class="{'check': item.checked == 1}"  @click="cartEdit(0, item, item.checked)">
-                        <svg class="icon icon-ok">
-                          <use xlink:href="#icon-ok"></use>
-                        </svg>
-                      </a>
-                    </div>
-                    <div class="cart-item-pic">
-                      <img v-lazy="'/static/' + item.productImage">
-                    </div>
-                    <div class="cart-item-title">
-                      <div class="item-name">{{item.productName}}</div>
-                    </div>
-                  </div>
-                  <div class="cart-tab-2">
-                    <div class="item-price">{{item.salePrice}}</div>
-                  </div>
-                  <div class="cart-tab-3">
-                    <div class="item-quantity">
-                      <div class="select-self select-self-open">
-                        <div class="select-self-area">
-                          <a class="input-sub" @click="cartEdit(-1, item)">-</a>
-                          <span class="select-ipt">{{item.productNum}}</span>
-                          <a class="input-add" @click="cartEdit(1, item)">+</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="cart-tab-4">
-                    <div class="item-price-total">{{item.salePrice * item.productNum | currency}}</div>
-                  </div>
-                  <div class="cart-tab-5">
-                    <div class="cart-item-opration">
-                      <a href="javascript:;" class="item-edit-btn" @click="cartDel(item.productId)">
-                        <svg class="icon icon-del">
-                          <use xlink:href="#icon-del"></use>
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </li>
+      <div class="checkout-page">
+        <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <symbol id="icon-add" viewBox="0 0 31 32">
+              <title>add</title>
+              <path class="path1" d="M30.745 15.152h-14.382v-14.596c0-0.308-0.243-0.557-0.543-0.557s-0.543 0.249-0.543 0.557v14.596h-14.665c-0.3 0-0.543 0.249-0.543 0.557s0.243 0.557 0.543 0.557h14.665v15.177c0 0.307 0.243 0.557 0.543 0.557s0.543-0.249 0.543-0.557v-15.177h14.382c0.3 0 0.543-0.249 0.543-0.557s-0.243-0.557-0.543-0.557z"></path>
+            </symbol>
+            <symbol id="icon-ok" viewBox="0 0 32 32">
+              <title>ok</title>
+              <path class="path1" d="M14.084 20.656l-7.845-9.282c-1.288-1.482-3.534-1.639-5.016-0.351s-1.639 3.534-0.351 5.016l10.697 12.306c1.451 1.669 4.057 1.623 5.448-0.096l18.168-22.456c1.235-1.527 0.999-3.765-0.528-5.001s-3.765-0.999-5.001 0.528l-15.573 19.337z"></path>
+            </symbol>
+            <symbol id="icon-edit" viewBox="0 0 32 32">
+              <title>edit</title>
+              <path class="path1" d="M28.287 8.51l-4.805-4.806 0.831-0.831c0.472-0.472 1.086-0.777 1.564-0.777 0.248 0 0.452 0.082 0.622 0.253l3.143 3.144c0.539 0.54 0.133 1.529-0.524 2.186l-0.831 0.831zM26.805 9.992l-1.138 1.138-4.805-4.806 1.138-1.138 4.805 4.806zM24.186 12.612l-14.758 14.762-4.805-4.806 14.758-14.762 4.805 4.806zM7.379 28.288l-4.892 1.224 1.223-4.894 3.669 3.67zM31.123 4.011l-3.143-3.144c-0.567-0.567-1.294-0.867-2.103-0.867-1.036 0-2.174 0.52-3.045 1.391l-20.429 20.436c-0.135 0.134-0.23 0.302-0.276 0.487l-2.095 8.385c-0.089 0.355 0.017 0.736 0.276 0.995 0.198 0.198 0.461 0.307 0.741 0.307 0.085 0 0.171-0.010 0.254-0.031l8.381-2.096c0.185-0.047 0.354-0.142 0.487-0.276l20.43-20.436c1.409-1.41 2.042-3.632 0.524-5.15v0z"></path>
+            </symbol>
+            <symbol id="icon-del" viewBox="0 0 32 32">
+              <title>delete</title>
+              <path class="path1" d="M11.355 4.129v-2.065h9.29v2.065h-9.29zM6.194 29.935v-23.742h19.613v23.742h-19.613zM30.968 4.129h-8.258v-3.097c0-0.569-0.463-1.032-1.032-1.032h-11.355c-0.569 0-1.032 0.463-1.032 1.032v3.097h-8.258c-0.569 0-1.032 0.463-1.032 1.032s0.463 1.032 1.032 1.032h3.097v24.774c0 0.569 0.463 1.032 1.032 1.032h21.677c0.569 0 1.032-0.463 1.032-1.032v-24.774h3.097c0.569 0 1.032-0.463 1.032-1.032s-0.463-1.032-1.032-1.032v0z"></path>
+              <path class="path2" d="M10.323 9.806c-0.569 0-1.032 0.463-1.032 1.032v14.452c0 0.569 0.463 1.032 1.032 1.032s1.032-0.463 1.032-1.032v-14.452c0-0.569-0.463-1.032-1.032-1.032z"></path>
+              <path class="path3" d="M16 9.806c-0.569 0-1.032 0.463-1.032 1.032v14.452c0 0.569 0.463 1.032 1.032 1.032s1.032-0.463 1.032-1.032v-14.452c0-0.569-0.463-1.032-1.032-1.032z"></path>
+              <path class="path4" d="M21.677 9.806c-0.569 0-1.032 0.463-1.032 1.032v14.452c0 0.569 0.463 1.032 1.032 1.032s1.032-0.463 1.032-1.032v-14.452c0-0.569-0.463-1.032-1.032-1.032z"></path>
+            </symbol>
+            <symbol id="icon-clock" viewBox="0 0 32 32">
+              <title>clock</title>
+              <path class="path1" d="M29.333 16c0-7.364-5.97-13.333-13.333-13.333s-13.333 5.97-13.333 13.333c0 7.364 5.97 13.333 13.333 13.333s13.333-5.97 13.333-13.333v0 0 0 0 0 0zM0 16c0-8.837 7.163-16 16-16s16 7.163 16 16c0 8.837-7.163 16-16 16s-16-7.163-16-16zM14.667 14.667v1.333h2.667v-10.667h-2.667v9.333zM24 18.667h1.333v-2.667h-10.667v2.667h9.333z"></path>
+            </symbol>
+            <symbol id="icon-question" viewBox="0 0 32 32">
+              <title>question</title>
+              <path class="path1" d="M16 2.56c7.411 0 13.44 6.029 13.44 13.44s-6.029 13.44-13.44 13.44c-7.411 0-13.44-6.029-13.44-13.44s6.029-13.44 13.44-13.44zM16 0c-8.822 0-16 7.178-16 16s7.178 16 16 16c8.822 0 16-7.178 16-16s-7.178-16-16-16z"></path>
+              <path class="path2" d="M16 22.080c-1.059 0-1.92 0.861-1.92 1.92s0.861 1.92 1.92 1.92c1.059 0 1.92-0.861 1.92-1.92s-0.861-1.92-1.92-1.92z"></path>
+              <path class="path3" d="M12.16 12.48c0.706 0 1.28-0.574 1.28-1.28 0-1.412 1.148-2.56 2.56-2.56s2.56 1.148 2.56 2.56c0 1.412-1.148 2.56-2.56 2.56-0.706 0-1.28 0.574-1.28 1.28v3.84c0 0.706 0.574 1.28 1.28 1.28s1.28-0.574 1.28-1.28v-2.723c2.224-0.575 3.84-2.616 3.84-4.957 0-2.823-2.297-5.12-5.12-5.12s-5.12 2.297-5.12 5.12c0 0.706 0.574 1.28 1.28 1.28z"></path>
+            </symbol>
+          </defs>
+        </svg>
+        <div class="container">
+          <div class="checkout-addr">
+            <div class="page-title-normal">
+              <h2 class="page-title-h2"><span>check out</span></h2>
+            </div>
+            <!-- process step -->
+            <div class="check-step">
+              <ul>
+                <li class="cur"><span>确认</span> 收货地址</li>
+                <li><span>核对</span> 订单信息</li>
+                <li><span>支付</span> 方式</li>
+                <li><span>成功提交</span> 订单</li>
               </ul>
             </div>
-          </div>
-          <div class="cart-foot-wrap">
-            <div class="cart-foot-inner">
-              <div class="cart-foot-l">
-                <div class="item-all-check">
-                  <a href="javascript:void(0);" @click="checkAll">
-                           <span class="checkbox-btn item-check-btn"  v-bind:class="{'check': isCheckedAll==true}">
-                              <svg class="icon icon-ok"><use xlink:href="#icon-ok"/></svg>
-                           </span>
-                    <span>全选</span>
-                  </a>
-                </div>
+
+            <!-- address list -->
+            <div class="page-title-normal checkout-title">
+              <h2><span>收货人信息</span></h2>
+            </div>
+            <div class="addr-list-wrap">
+              <div class="addr-list">
+                <ul>
+                  <li v-for="(item,index) in addressList">
+                    <dl>
+                      <dt>{{item.userName}}（用户名）</dt>
+                      <dd class="address">{{item.streetName}}</dd>
+                      <dd class="tel">{{item.tel}}</dd>
+                    </dl>
+                    <div class="addr-opration addr-del">
+                      <a href="javascript:;" class="addr-del-btn">
+                        <svg class="icon icon-del"><use xlink:href="#icon-del"></use></svg>
+                      </a>
+                    </div>
+                    <div class="addr-opration addr-set-default">
+                      <a href="javascript:;" class="addr-set-default-btn"><i>设为 默认地址</i></a>
+                    </div>
+                    <div class="addr-opration addr-default" v-show="item.isDefault">默认地址</div>
+                  </li>
+                  <li class="addr-new" v-show="addressLimit">
+                    <div class="add-new-inner">
+                      <i class="icon-add">
+                        <svg class="icon icon-add"><use xlink:href="#icon-add"></use></svg>
+                      </i>
+                      <p>新增收货地址</p>
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <div class="cart-foot-r">
-                <div class="item-total">
-                  总价: <span class="total-price">{{totalPrice | currency}}</span>
-                </div>
-                <div class="btn-wrap">
-                  <a class="btn btn--red" v-bind:class="{'btn--dis': checkedLength == 0}" @click="checkOut">去结算</a>
-                </div>
+
+              <div class="shipping-addr-more">
+                <a class="addr-more-btn up-down-btn" href="javascript:;" >
+                  更多地址
+                  <i class="i-up-down">
+                    <i class="i-up-down-l"></i>
+                    <i class="i-up-down-r"></i>
+                  </i>
+                </a>
               </div>
+            </div>
+
+            <!-- shipping method-->
+            <div class="page-title-normal checkout-title">
+              <h2><span>货运方式</span></h2>
+            </div>
+            <div class="lemall-msg-info hidden">
+              <span>您所选的地址不在我们的配送范围，请选择其他地址</span>
+            </div>
+            <div class="shipping-method-wrap">
+              <div class="shipping-method">
+                <ul>
+                  <li class="check">
+                    <div class="name">京东快递</div>
+                    <div class="price">包邮</div>
+                    <div class="shipping-tips">
+                      <p>自签收后7天内退货，15天内换货，可享1次上门取件服务</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="next-btn-wrap">
+              <a class="btn btn--m btn--red">去结算</a>
             </div>
           </div>
         </div>
       </div>
       <NavFooter></NavFooter>
-      <modal v-bind:mdShow="msgShow" v-on:close="messageClose">
-        <p slot="message">{{message}}</p>
-      </modal>
-      <Modal v-bind:mdShow="mdShow" v-on:close="ModalClose">
-        <p slot="message">确认删除？</p>
-        <div slot="btnGroup">
-          <a class="btn btn--m" href="javascript:void(0);" @click="ModalClose">取消</a>
-          <a class="btn btn--m" href="javascript:void(0);" @click="cartDelConfirm">确定</a>
-        </div>
-      </Modal>
-      <div class="md-overlay" v-show="overLayFlag" @click.stop="closePop"></div>
-      </div>
+    </div>
 </template>
+
 <script>
   import NavHeader from './../components/NavHeader.vue'
   import NavBread from './../components/NavBread.vue'
   import NavFooter from './../components/NavFooter.vue'
-  import Modal from './../components/Modal.vue'
-  import {currency} from './../util/currency'
+  import Modal from '../components/Modal.vue'
+
   import axios from 'axios'
   export default {
-    name: 'Cart',
+    name: '',
     components: {
+      Modal,
       NavHeader,
       NavBread,
-      NavFooter,
-      Modal
-    },
-    filters: {
-      currency: currency
+      NavFooter
     },
     mounted () {
-      this.getCarList()
+      this.getAddressList()
     },
     data () {
       return {
-        mdShow: false,
-        msgShow: false,
-        overLayFlag: false,
-        isCheckedAll: false,
-        checkedLength: 0,
-        message: '',
-        cartDelId: '',
-        cartList: []
-      }
-    },
-    computed: {
-      totalPrice () {
-        let money = 0
-        let checkedLength = 0
-        this.cartList.forEach(function (item) {
-          if (parseInt(item.checked) === 1) {
-            checkedLength += 1
-            money += item.salePrice * item.productNum
-          }
-        })
-        this.isCheckedAll = checkedLength === this.cartList.length
-        this.checkedLength = checkedLength
-        return money
+        addressLimit: false,
+        addressList: []
       }
     },
     methods: {
-      ModalClose () {
-        this.mdShow = false
-        this.overLayFlag = false
-      },
-      messageClose () {
-        this.msgShow = false
-        this.overLayFlag = false
-      },
-      closePop () {
-        this.mdShow = false
-        this.msgShow = false
-        this.overLayFlag = false
-      },
-      checkAll () {
-        this.isCheckedAll = this.isCheckedAll ? 0 : 1
-        axios.post('/users/cartCheckAll', {checkAll: this.isCheckedAll}).then((res) => {
-          var result = res.data
+      getAddressList () {
+        axios.post('/users/addressList').then((res) => {
+          let result = res.data
           if (result.status === 0) {
-            this.getCarList()
+            this.addressList = result.result
           } else {
-            this.message = result.msg
-            this.msgShow = true
-            this.overLayFlag = true
-          }
-        })
-      },
-      checkOut () {
-        if (this.checkedLength > 0) {
-          this.$router.push({
-            path: '/address'
-          })
-        }
-      },
-      getCarList () {
-        axios.post('/users/getCarList').then((response) => {
-          var res = response.data
-          if (res.status === 0) {
-            this.cartList = res.result.cartList
-          }
-        })
-      },
-      cartDel (id) {
-        this.mdShow = true
-        this.overLayFlag = true
-        this.cartDelId = id
-      },
-      cartDelConfirm () {
-        this.mdShow = false
-        this.overLayFlag = false
-        axios.post('/users/cartDel', {productId: this.cartDelId}).then((res) => {
-          var result = res.data
-          if (result.status === 0) {
-            this.cartDelId = ''
-            this.getCarList()
-          } else {
-            this.message = result.msg
-            this.msgShow = true
-            this.overLayFlag = true
-          }
-        })
-      },
-      cartEdit (num, item, checked) {
-        let pNum = parseInt(num) + parseInt(item.productNum)
-        item.productNum = pNum < 1 ? 1 : pNum
-        if (checked !== undefined) {
-          item.checked = parseInt(checked) === 1 ? 0 : 1
-        }
-        axios.post('/users/cartEdit', item).then((res) => {
-          var result = res.data
-          if (result.status === 0) {
-            this.getCarList()
+            alert('0')
           }
         })
       }
@@ -1443,26 +1340,4 @@
       right: 22px; }
     .header__search-mobile, .header__search-wrapper {
       display: none; } }
-  .input-sub,.input-add{
-    min-width: 40px;
-    height: 100%;
-    border: 0;
-    color: #605F5F;
-    text-align: center;
-    font-size: 16px;
-    overflow: hidden;
-    display: inline-block;
-    background: #f0f0f0;
-  }
-  .item-quantity .select-self-area{
-    background:none;
-    border: 1px solid #f0f0f0;
-  }
-  .item-quantity .select-self-area .select-ipt{
-    display: inline-block;
-    padding:0 3px;
-    width: 30px;
-    min-width: 30px;
-    text-align: center;
-  }
 </style>

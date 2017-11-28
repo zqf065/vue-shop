@@ -160,4 +160,22 @@ router.post('/cartCheckAll', function (req, res, next) {
     }
   });
 });
+router.post('/addressList', function (req, res, next) {
+  let userId = req.cookies.userId
+  User.findOne({userId: userId}, function (err, user) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message
+      })
+    }
+    if (user) {
+      res.json({
+        status: 0,
+        msg: '',
+        result: user.addressList
+      })
+    }
+  })
+});
 module.exports = router;
