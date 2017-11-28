@@ -109,8 +109,8 @@
             <div class="cart-foot-inner">
               <div class="cart-foot-l">
                 <div class="item-all-check">
-                  <a href="javascipt:;">
-                           <span class="checkbox-btn item-check-btn">
+                  <a href="javascript:void(0);" @click="checkAll">
+                           <span class="checkbox-btn item-check-btn"  v-bind:class="{'check': isCheckedAll==true}">
                               <svg class="icon icon-ok"><use xlink:href="#icon-ok"/></svg>
                            </span>
                     <span>全选</span>
@@ -130,13 +130,17 @@
         </div>
       </div>
       <NavFooter></NavFooter>
-      <Modal v-show="mdShow" v-on:close="ModalClose">
+      <modal v-bind:mdShow="msgShow" v-on:close="messageClose">
+        <p slot="message">{{message}}</p>
+      </modal>
+      <Modal v-bind:mdShow="mdShow" v-on:close="ModalClose">
         <p slot="message">确认删除？</p>
         <div slot="btnGroup">
-          <a class="btn btn--m" href="javascript:void(0);" @click="mdShow=false">取消</a>
-          <a class="btn btn--m" href="javascript:void(0);" @click="cartDel">确定</a>
+          <a class="btn btn--m" href="javascript:void(0);" @click="ModalClose">取消</a>
+          <a class="btn btn--m" href="javascript:void(0);" @click="cartDelConfirm">确定</a>
         </div>
       </Modal>
+      <div class="md-overlay" v-show="overLayFlag" @click.stop="closePop"></div>
       </div>
 </template>
 <script>
@@ -159,23 +163,59 @@
     data () {
       return {
         mdShow: false,
+        msgShow: false,
+        overLayFlag: false,
+        isCheckedAll: false,
+        checkedLength: 0,
+        message: '',
+        cartDelId: '',
         cartList: []
       }
     },
     computed: {
       totalPrice () {
-        var money = 0
+        let money = 0
+        let checkedLength = 0
         this.cartList.forEach(function (item) {
           if (parseInt(item.checked) === 1) {
+            checkedLength += 1
             money += item.salePrice * item.productNum
           }
         })
+        if (checkedLength === this.cartList.length) {
+          this.isCheckedAll = true
+        } else {
+          this.isCheckedAll = false
+        }
         return money
       }
     },
     methods: {
       ModalClose () {
         this.mdShow = false
+        this.overLayFlag = false
+      },
+      messageClose () {
+        this.msgShow = false
+        this.overLayFlag = false
+      },
+      closePop () {
+        this.mdShow = false
+        this.msgShow = false
+        this.overLayFlag = false
+      },
+      checkAll () {
+        this.isCheckedAll = this.isCheckedAll ? 0 : 1
+        axios.post('/users/cartCheckAll', {checkAll: this.isCheckedAll}).then((res) => {
+          var result = res.data
+          if (result.status === 0) {
+            this.getCarList()
+          } else {
+            this.message = result.msg
+            this.msgShow = true
+            this.overLayFlag = true
+          }
+        })
       },
       getCarList () {
         axios.post('/users/getCarList').then((response) => {
@@ -186,10 +226,22 @@
         })
       },
       cartDel (id) {
-        axios.post('/users/cartDel', {productId: id}).then((res) => {
+        this.mdShow = true
+        this.overLayFlag = true
+        this.cartDelId = id
+      },
+      cartDelConfirm () {
+        this.mdShow = false
+        this.overLayFlag = false
+        axios.post('/users/cartDel', {productId: this.cartDelId}).then((res) => {
           var result = res.data
           if (result.status === 0) {
+            this.cartDelId = ''
             this.getCarList()
+          } else {
+            this.message = result.msg
+            this.msgShow = true
+            this.overLayFlag = true
           }
         })
       },

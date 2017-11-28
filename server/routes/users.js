@@ -131,4 +131,33 @@ router.post('/cartEdit', function (req, res, next) {
     }
   })
 });
+router.post('/cartCheckAll', function (req, res, next) {
+  var checkAll = req.body.checkAll;
+  var userId = req.cookies.userId;
+  User.findOne({userId: userId}, function (err, doc) {
+    if (err) {
+      res.json({
+        status: 0,
+        msg: err.message
+      });
+    } else {
+      doc.cartList.forEach(function (item) {
+        item.checked = checkAll;
+      });
+      doc.save(function (err, doc2) {
+        if (err) {
+          res.json({
+            status: 1,
+            msg: err.message
+          })
+        } else {
+          res.json({
+            status: 0,
+            msg: ''
+          })
+        }
+      });
+    }
+  });
+});
 module.exports = router;

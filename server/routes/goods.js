@@ -48,7 +48,7 @@ router.get('/list', function (req, res, next) {
   });
 });
 router.post('/addCart', function(req, res, next) {
-  var userId = '100000077';
+  var userId = req.cookies.userId;
   var productId = req.body.productId;
   user.findOne({'userId': userId}, (err, doc) => {
     if (err) {
