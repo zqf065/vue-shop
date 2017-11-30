@@ -162,6 +162,7 @@ router.post('/cartCheckAll', function (req, res, next) {
 });
 router.post('/addressList', function (req, res, next) {
   let userId = req.cookies.userId
+  console.log('userid=======' + userId);
   User.findOne({userId: userId}, function (err, user) {
     if (err) {
       res.json({
@@ -175,6 +176,118 @@ router.post('/addressList', function (req, res, next) {
         msg: '',
         result: user.addressList
       })
+    }
+  })
+});
+router.post('/addressDel', function(req, res, next) {
+  let userId = req.cookies.userId
+  let addressId = req.body.addressId
+  User.findOne({userId: userId}, function (err, doc) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message
+      })
+    }
+    if (doc && doc.addressList.length === 1) {
+      res.json({
+        status: 1,
+        msg: '收货地址至少保留一条'
+      })
+    }
+  });
+  User.update({userId: userId}, {
+    $pull: {
+      addressList: {
+        'addressId': addressId
+      }
+    }
+  }, function (err, doc) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message
+      })
+    } else {
+      res.json({
+        status: 0,
+        msg: ''
+      })
+    }
+  });
+});
+router.post('/addressAdd', function (req, res, next) {
+  let userId = req.cookies.userId;
+  let addressId = req.body.addressId;
+  let userName = req.body.userName;
+  let streetName = req.body.streetName;
+  let postCode = req.body.postCode;
+  let tel = req.body.tel;
+  let isDefault = req.body.isDefault;
+  User.findOne({userId: userId}, function (err, user) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message
+      })
+    }
+    if (user) {
+      if (isDefault) {
+        user.addressList.forEach(function (item) {
+          item.isDefault = false
+        });
+      }
+      user.addressList.push({
+        'addressId': addressId,
+        'userName': userName,
+        'streetName': streetName,
+        'postCode': postCode,
+        'tel': tel,
+        'isDefault': isDefault
+      });
+      user.save(function (err, doc) {
+        if (err) {
+          res.json({
+            status: 1,
+            msg: err.message
+          })
+        } else {
+          res.json({
+            status: 0,
+            msg: ''
+          })
+        }
+      });
+    }
+  });
+});
+router.post('/addressEdit', function (req, res, next) {
+  let userId = req.cookies.userId
+  let addressId = req.body.addressId
+  User.findOne({userId: userId}, function (err, doc) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message
+      })
+    }
+    if (doc) {
+      doc.addressList.forEach(function (item) {
+        item.isDefault = item.addressId === addressId;
+      });
+      doc.save(function (err, doc) {
+        if (err) {
+          res.json({
+            status: 1,
+            msg: err.message
+          })
+        } else {
+          res.json({
+            status: 0,
+            msg: ''
+          })
+        }
+      });
     }
   })
 });
