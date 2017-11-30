@@ -291,4 +291,18 @@ router.post('/addressEdit', function (req, res, next) {
     }
   })
 });
+router.post('/subOrder', function (req, res, next) {
+  let userId = req.cookies.userId
+  User.findOne({userId: userId}, function (err, user) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message
+      })
+    }
+    if (user) {
+      user.orderList.push()
+    }
+  })
+});
 module.exports = router;

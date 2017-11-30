@@ -121,7 +121,7 @@
               </div>
             </div>
             <div class="next-btn-wrap">
-              <a class="btn btn--m btn--red">去结算</a>
+              <router-link class="btn btn--m btn--red" :to="{path:'orderConfirm',query:{addressId: selectedAddress}}">去结算</router-link>
             </div>
           </div>
         </div>
@@ -212,6 +212,7 @@
         overLayFlag: false,
         msgShow: false,
         msg: '',
+        selectedAddress: '',
         checkedIndex: 0,
         addressList: []
       }
@@ -222,6 +223,7 @@
           let result = res.data
           if (result.status === 0) {
             this.addressList = result.result
+            this.selectedAddress = this.addressList[0].addressId
           } else {
             this.msg = result.msg
             this.msgShow = true
