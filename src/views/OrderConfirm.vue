@@ -119,7 +119,7 @@
             <router-link class="btn btn--m" to="/cart">修改订单</router-link>
           </div>
           <div class="next-btn-wrap">
-            <button class="btn btn--m btn--red">提交订单</button>
+            <button class="btn btn--m btn--red" @click="subOrder">提交订单</button>
           </div>
         </div>
       </div>
@@ -175,7 +175,17 @@
       },
       subOrder () {
         let addressId = this.$route.query.addressId
-        axios.post('/users/subOrder', {addressId: addressId}).then((res) => {})
+        axios.post('/users/subOrder', {addressId: addressId, subTotal: this.subTotal}).then((res) => {
+          let result = res.data
+          if (result.status === 0) {
+            this.$router.push({
+              path: 'orderSuccess',
+              query: {
+                'orderId': result.result
+              }
+            })
+          }
+        })
       }
     }
   }

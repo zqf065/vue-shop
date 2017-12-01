@@ -179,7 +179,7 @@ router.post('/addressList', function (req, res, next) {
     }
   })
 });
-router.post('/addressDel', function(req, res, next) {
+router.post('/addressDel', function (req, res, next) {
   let userId = req.cookies.userId
   let addressId = req.body.addressId
   User.findOne({userId: userId}, function (err, doc) {
@@ -292,7 +292,11 @@ router.post('/addressEdit', function (req, res, next) {
   })
 });
 router.post('/subOrder', function (req, res, next) {
-  let userId = req.cookies.userId
+  let addressInfo, orderId;
+  let userId = req.cookies.userId;
+  let addressId = req.body.addressId;
+  let subTotal = req.body.subTotal;
+  var goodListInfo = [];
   User.findOne({userId: userId}, function (err, user) {
     if (err) {
       res.json({
@@ -301,7 +305,65 @@ router.post('/subOrder', function (req, res, next) {
       })
     }
     if (user) {
-      user.orderList.push()
+      user.addressList.forEach((item) => {
+        if (item.addressId === addressId) {
+          addressInfo = item
+        }
+      });
+      user.cartList.forEach((item) => {
+        if (item.checked === '1') {
+          goodListInfo.push(item)
+        }
+      });
+      orderId = Math.round(Math.random() * 1000000);
+      user.orderList.push({
+        orderId: orderId,
+        addressInfo: addressInfo,
+        goodListInfo: goodListInfo,
+        subTotal: subTotal
+      });
+      user.save(function (err, doc) {
+        if (err) {
+          res.json({
+            status: 1,
+            msg: err.message
+          })
+        } else {
+          res.json({
+            status: 0,
+            msg: '',
+            result: orderId
+          })
+        }
+      });
+    }
+  })
+});
+router.post('/orderDetail', function (req, res, next) {
+  var subTotal;
+  let userId = req.cookies.userId;
+  let orderId = req.body.orderId;
+  User.findOne({userId: userId}, function (err, user) {
+    if (err) {
+      res.json({
+        status: 1,
+        msg: err.message
+      })
+    }
+    if (user) {
+      user.orderList.forEach((item) => {
+        if (item.orderId === orderId) {
+          subTotal = item.subTotal
+        }
+      });
+      res.json({
+        status: 0,
+        msg: '',
+        result: {
+          subTotal: subTotal,
+          orderId: orderId
+        }
+      })
     }
   })
 });

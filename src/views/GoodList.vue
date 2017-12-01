@@ -94,6 +94,7 @@
   import NavFooter from './../components/NavFooter.vue'
   import Modal from '../components/Modal.vue'
   import {currency} from './../util/currency'
+  import {mapState} from 'vuex'
 
   import axios from 'axios'
 
@@ -103,6 +104,9 @@
     },
     filters: {
       currency: currency
+    },
+    computed: {
+      ...mapState(['nickName', 'cartCount'])
     },
     components: {
       Modal,
@@ -171,6 +175,7 @@
           if (status === 0) {
             this.msg = '加入购物车成功！'
             this.mdSuccess = true
+            this.$store.commit('updateCartCount', 1)
           } else {
             this.msg = res.data.msg
             this.mdShow = true

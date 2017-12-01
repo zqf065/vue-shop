@@ -35,7 +35,7 @@
               <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true" v-if="!nickName">登录</a>
               <a href="javascript:void(0)" class="navbar-link" @click="loginOut" v-else>登出</a>
               <div class="navbar-cart-container">
-                <span class="navbar-cart-count"></span>
+                <span class="navbar-cart-count" v-text="cartCount" v-show="showCart"></span>
                 <a class="navbar-link" href="/#/cart">
                   <svg class="navbar-cart-logo">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import axios from 'axios'
   export default {
     mounted () {
@@ -91,18 +92,22 @@
     data () {
       return {
         loginModalFlag: false,
-        userName: '',
-        userPwd: '',
-        nickName: '',
+        showCart: false,
+        userName: 'admin',
+        userPwd: '123456',
         errMsg: ''
       }
+    },
+    computed: {
+      ...mapState(['nickName', 'cartCount'])
     },
     methods: {
       checkLogin () {
         axios.post('/users/checkLogin').then((res) => {
           var result = res.data
           if (result.status === 0) {
-            this.nickName = result.result.userName
+            this.$store.commit('updateUserInfo', result.result.userName)
+            this.showCart = true
           }
         })
       },
@@ -110,7 +115,8 @@
         axios.post('/users/logout').then((res) => {
           var result = res.data
           if (result.status === 0) {
-            this.nickName = ''
+            this.$store.commit('updateUserInfo', '')
+            this.showCart = false
           }
         })
       },
@@ -120,11 +126,25 @@
         axios.post('/users/login', {userName: userName, userPwd: userPwd}).then((res) => {
           var result = res.data
           if (result.status === 0) {
-            this.nickName = result.result.userName
             this.loginModalFlag = false
+            this.showCart = true
             this.errMsg = ''
+            this.$store.commit('updateUserInfo', result.result.userName)
+            this.getCartCount()
           } else {
             this.errMsg = result.msg
+          }
+        })
+      },
+      getCartCount () {
+        axios.post('/users/getCarList').then((response) => {
+          var res = response.data
+          if (res.status === 0) {
+            var count = 0
+            res.result.cartList.forEach(function (item) {
+              count += parseInt(item.productNum)
+            })
+            this.$store.commit('updateCartCount', count)
           }
         })
       }

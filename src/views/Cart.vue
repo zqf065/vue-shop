@@ -94,7 +94,7 @@
                   </div>
                   <div class="cart-tab-5">
                     <div class="cart-item-opration">
-                      <a href="javascript:;" class="item-edit-btn" @click="cartDel(item.productId)">
+                      <a href="javascript:;" class="item-edit-btn" @click="cartDel(item)">
                         <svg class="icon icon-del">
                           <use xlink:href="#icon-del"></use>
                         </svg>
@@ -149,6 +149,7 @@
   import NavFooter from './../components/NavFooter.vue'
   import Modal from './../components/Modal.vue'
   import {currency} from './../util/currency'
+  import {mapState} from 'vuex'
   import axios from 'axios'
   export default {
     name: 'Cart',
@@ -172,11 +173,12 @@
         isCheckedAll: false,
         checkedLength: 0,
         message: '',
-        cartDelId: '',
+        cartDelItem: null,
         cartList: []
       }
     },
     computed: {
+      ...mapState(['cartCount']),
       totalPrice () {
         let money = 0
         let checkedLength = 0
@@ -233,18 +235,19 @@
           }
         })
       },
-      cartDel (id) {
+      cartDel (item) {
         this.mdShow = true
         this.overLayFlag = true
-        this.cartDelId = id
+        this.cartDelItem = item
       },
       cartDelConfirm () {
         this.mdShow = false
         this.overLayFlag = false
-        axios.post('/users/cartDel', {productId: this.cartDelId}).then((res) => {
+        axios.post('/users/cartDel', {productId: this.cartDelItem.productId}).then((res) => {
           var result = res.data
           if (result.status === 0) {
-            this.cartDelId = ''
+            this.cartDelItem = null
+            this.$store.commit('updateCartCount', -1)
             this.getCarList()
           } else {
             this.message = result.msg
@@ -255,14 +258,17 @@
       },
       cartEdit (num, item, checked) {
         let pNum = parseInt(num) + parseInt(item.productNum)
-        item.productNum = pNum < 1 ? 1 : pNum
+        if (pNum < 1) {
+          return false
+        }
+        item.productNum = pNum
         if (checked !== undefined) {
           item.checked = parseInt(checked) === 1 ? 0 : 1
         }
         axios.post('/users/cartEdit', item).then((res) => {
           var result = res.data
           if (result.status === 0) {
-            this.getCarList()
+            this.$store.commit('updateCartCount', parseInt(num))
           }
         })
       }
